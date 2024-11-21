@@ -1,0 +1,22 @@
+@page "/article/{nombre}"
+@model Article
+
+<h1>@Model.Elemento.Title</h1>
+<time>@Model.Elemento.Fecha</time>
+<hr>
+<p>@Model.Elemento.Content</p>
+
+@functions{
+    public class Article : PageModel
+    {
+        Data data;
+        public Article(Data data) => this.data = data; 
+         
+        public Publication Elemento{get; private set;}
+
+        public void OnGet(string nombre)
+        {
+            Elemento = data.Publication.First((entry)=> entry.Title == nombre);
+        }
+    }
+}

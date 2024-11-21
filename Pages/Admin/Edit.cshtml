@@ -1,0 +1,79 @@
+@page "/admin/edit/{title}"
+@model EditPageModel
+
+<link rel="stylesheet" href="~/prueba.css">
+
+
+<style>
+  .input-validation-error{
+    border-color: =red;
+    backgroud-color:#fdd;
+  }
+
+  .text-danger{
+    color:red;
+  }
+</style>
+
+ <form class="custom-form" asp-page="Edit" method="post">
+    <div>
+      <label asp-for="Publication.Title"></label>
+      <span asp-validation-for="Publication.Title"/>
+
+      <input asp-for="Publication.Title" name="Title" placeholder="Title" />
+      <input value="@Model.Publication.Title" name="vieja.Title" hidden />
+    </div>
+
+    <div>
+      <label asp-for="Publication.Fecha"></label>
+
+      <span asp-validation-for="Publication.Fecha"/>
+      <input asp-for="Publication.Fecha" name="Fecha" placeholder="Fecha"/>
+
+      <input value="@Model.Publication.Fecha" name="vieja.Fecha" hidden />
+    </div>
+
+    <div>
+      <label asp-for="Publication.Content"></label>
+      <textarea
+        class="entrada"
+        asp-for="Publication.Content"
+        name="Content"
+        placeholder="Write some info"
+      >
+      </textarea>
+    </div>
+
+    <div>
+      <button type="submit">Save</button>
+      <a class="btn btn-sm" asp-page="AdminHome">Cancel</a>
+    </div>
+  </form>
+
+@functions
+{
+    public class EditPageModel : PageModel
+    {
+        Data Data;
+
+        public Publication Publication { get; private set; } = new();
+
+        public EditPageModel(Data data, LinkGenerator l) => (Data) = (data);
+
+        public void OnGet(string title)
+        {
+            Publication = Data.Publication.FirstOrDefault((e) => e.Title == title, new Publication());
+        }
+
+        public IActionResult OnPost(Publication nuevo, [Bind(Prefix="vieja")]Publication vieja)
+        {
+            if(this.ModelState.IsValid)
+            {
+                Data.Actualizar(nuevo, vieja);
+                return this.RedirectToPagePermanent("AdminHome");
+            }
+
+           return RedirectToPage("Edit", new {title=vieja.Title});
+        }
+    }
+}

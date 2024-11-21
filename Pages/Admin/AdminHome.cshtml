@@ -1,0 +1,52 @@
+@page "/admin"
+@model AdminHome
+
+<link href="~/element.css" rel="stylesheet">
+
+<h1>Administrator</h1>
+<hr>
+<a class="btn btn-primary" asp-page="Add">Add</a>
+
+<table class="custom-table">
+
+<tbody>
+    @foreach (var data in Model.Data.Publication)
+    {
+        <tr>
+            <td>
+                @data.Title
+            </td>
+            <td>
+                @data.Fecha
+            </td>
+            <td>
+                <a class="btn btn-sm btn-warning" asp-page="Edit" asp-route-title="@data.Title">Edit</a>
+            </td>
+            <td>
+                <form asp-page-handler="action" method="post">
+                    <input type="text" hidden name="title" value="@data.Title"/>
+                    <button class="btn btn-sm btn-danger" type="submit">Remove</button>
+                </form>
+            </td>
+        </tr>    
+    }
+ </tbody>
+
+</table>
+
+
+@functions {
+
+    public class AdminHome : PageModel
+    {
+        public Data Data {get;}
+
+        public AdminHome(Data data) => Data = data;
+
+        public IActionResult OnPostAction(string title)
+        {
+            Data.Remove(title);
+            return RedirectToPagePermanent("AdminHome");
+        }
+    }
+}

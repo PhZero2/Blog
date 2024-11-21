@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<head> 
+    <!--<link rel="stylesheet" href="/wwwroot/styles.css"> -->
+    <link rel="stylesheet" href="wwwroot/prueba.css">
+</head>
+
+<body>
+
+  <form asp-page="Edit" method="post">
+    <section>
+      <label>Title</label>
+
+      <input class="entrada" asp-for="Publication.Title" name="Title" placeholder="Title" />
+      <input value="@Model.Publication.Title" name="vieja.Title" hidden />
+    </section>
+
+    <section>
+      <label>Fecha</label>
+
+      <input class="entrada" asp-for="Publication.Fecha" name="Fecha" placeholder="Fecha"/>
+      <input value="@Model.Publication.Fecha" name="vieja.Fecha" hidden />
+    </section>
+
+    <section >
+      <label>Content</label>
+      <textarea
+        class="entrada"
+        asp-for="Publication.Content"
+        name="Content"
+        placeholder="Write some info"
+      >
+      </textarea>
+    </section>
+
+    <section>
+      <button class="btn btn-primary" type="submit">Save</button>
+      <a class="btn btn-primary" asp-page="AdminHome">Cancel</a>
+    </section>
+  </form>
+
+
+</body>

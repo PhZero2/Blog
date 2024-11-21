@@ -1,0 +1,41 @@
+@page "/"
+@model Home
+
+<link href="~/element.css" rel="stylesheet">
+
+<h1>Personal Blog</h1>
+<hr>
+
+<table class="custom-table">
+
+    <tbody>
+        @foreach (var data in Model.Data)
+        {
+            <tr>
+                <td>
+                    <a asp-page="Article" asp-route-nombre="@data.Title">
+                        @data.Title
+                    </a>
+                </td>
+                <td>
+                    @data.Fecha
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+@functions {
+
+    public class Home : PageModel
+    {
+        public IEnumerable<Publication> Data { get; private set; } = Enumerable.Empty<Publication>();
+
+        public void OnGet([FromServices] Data data)
+        {
+            Data = data.Publication;
+        }
+    }
+}

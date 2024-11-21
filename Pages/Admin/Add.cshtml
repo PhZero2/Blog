@@ -1,0 +1,62 @@
+@page "/admin/add"
+@model AddPageModel
+
+<link rel="stylesheet" href="~/prueba.css">
+
+<style>
+
+</style>
+
+<form class="custom-form" asp-page="Add" method="post">
+  <div>
+    <span asp-validation-for="Publication.Title" />
+    <label asp-for="Publication.Title"></label>
+
+    <input asp-for="Publication.Title" name="Title" placeholder="Title" />
+    <input value="@Model.Publication.Title" name="vieja.Title" hidden />
+
+  </div>
+
+  <div>
+    <label asp-for="Publication.Fecha"></label>
+
+    <span asp-validation-for="Publication.Fecha" />
+
+    <input asp-for="Publication.Fecha" name="Fecha" placeholder="Fecha" />
+    <input value="@Model.Publication.Fecha" name="vieja.Fecha" hidden />
+
+  </div>
+
+  <div>
+    <label asp-for="Publication.Content"></label>
+    <textarea asp-for="Publication.Content" name="Content" placeholder="Write some info">
+      </textarea>
+  </div>
+
+  <div>
+    <button type="submit">Save</button>
+    <a class="btn btn-sm" asp-page="AdminHome">Cancel</a>
+  </dvi>
+</form>
+
+@functions
+{
+  public class AddPageModel : PageModel
+  {
+    Data data;
+    public AddPageModel(Data data) => this.data = data;
+
+    [BindProperty]
+    public Publication Publication { get; set; } = new();
+    public IActionResult OnPost()
+    {
+      if (ModelState.IsValid)
+      {
+        data.Add(Publication);
+        return this.RedirectToPagePermanent("AdminHome");
+      }
+
+      return Page();
+    }
+  }
+}

@@ -1,0 +1,72 @@
+.custom-form {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 25%;
+
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+}
+
+.custom-form div {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.custom-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.custom-form input,
+.custom-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+
+.custom-form textarea {
+    height: 150px;
+    resize: none;
+}
+
+.custom-form a,
+.custom-form button {
+    padding: 15px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.input-validation-error {
+    border-color: red;
+    background-color: #fdd;
+}
+
+.text-danger {
+    color: red;
+}
+td{
+    border-bottom: 1px solid #817f7f87;
+}
+
+.custom-table td{
+    border-bottom: 1px solid #817f7f87;
+}
